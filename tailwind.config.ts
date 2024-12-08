@@ -9,8 +9,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        peach: '#FFF3E3',
+        goldbrown: '#B88E2F',
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'], // Add Poppins font here
       },
     },
   },
