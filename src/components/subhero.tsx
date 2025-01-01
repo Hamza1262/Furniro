@@ -6,29 +6,29 @@ import Image from 'next/image'
 export default function Subhero(){
     return (
         <>
-        <div className="h-[685px] w-[1183] pt-20 pb-20 pl-30 m-20 flex flex-col align-middle items-center   ">
-            <div className="">
-            <h1 className="flex justify-center font-bold text-3xl">Browse The Range</h1>
-            <p className="flex justify-center font-normal text-[20px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>
-            <div className="flex justify-between">
-            <div className='h-[540px] w-[380px] flex flex-col items-center' >
-                <Image src={dining} alt='dining' height={900} width={900} 
-                className='h-[480px] w-[350px]' />
-                <p className='font-bold mt-8'>Dining</p>
+        <div className="h-auto pt-20 pb-20 pl-8 pr-8 m-4 flex flex-col items-center">
+          <div className="text-center mb-10">
+            <h1 className="font-bold text-3xl sm:text-4xl">Browse The Range</h1>
+            <p className="font-normal text-[18px] sm:text-[20px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-8">
+            <div className='h-auto w-full sm:w-[380px] flex flex-col items-center'>
+              <Image src={dining} alt='dining' height={900} width={900} className='h-[480px] w-full sm:w-[350px]' />
+              <p className='font-bold mt-8 text-center'>Dining</p>
             </div>
-            <div className='h-[540px] w-[380px] flex flex-col items-center' >
-                <Image src={living} alt='living' height={900} width={900} 
-                className='h-[480px] w-[350px]' />
-                <p className='font-bold mt-8'>Living</p>
+            <div className='h-auto w-full sm:w-[380px] flex flex-col items-center'>
+              <Image src={living} alt='living' height={900} width={900} className='h-[480px] w-full sm:w-[350px]' />
+              <p className='font-bold mt-8 text-center'>Living</p>
             </div>
-            <div className='h-[540px] w-[380px] flex flex-col items-center' >
-                <Image src={bedroom} alt='bedroom' height={900} width={900} 
-                className='h-[480px] w-[350px]' />
-                <p className='font-bold mt-8'>Bedroom</p>
+            <div className='h-auto w-full sm:w-[380px] flex flex-col items-center'>
+              <Image src={bedroom} alt='bedroom' height={900} width={900} className='h-[480px] w-full sm:w-[350px]' />
+              <p className='font-bold mt-8 text-center'>Bedroom</p>
             </div>
-            </div>
+          </div>
         </div>
-        </>
+      </>
+      
     )
 
 
