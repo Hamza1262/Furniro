@@ -12,6 +12,11 @@ import { useState } from "react";
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Close the mobile menu when a link is clicked
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <nav className="bg-white py-4 w-full h-24">
       <div className="container mx-auto flex items-center justify-between px-6 md:px-10">
@@ -38,8 +43,8 @@ export default function Header() {
           <Link href="/blog" className="text-black">
             BLOG
           </Link>
-          <Link href="/content" className="text-black">
-            CONTENT
+          <Link href="/contact" className="text-black">
+            CONTACT
           </Link>
         </div>
 
@@ -53,19 +58,6 @@ export default function Header() {
 
         {/* Mobile Menu Button (Hamburger) */}
         <div className="md:hidden flex items-center space-x-4">
-          <button className="p-2 bg-gray-200 rounded-md">
-            <SearchIcon />
-          </button>
-          <button className="p-2 bg-gray-200 rounded-md">
-            <Person2OutlinedIcon />
-          </button>
-          <button className="p-2 bg-gray-200 rounded-md">
-            <FavoriteBorderOutlinedIcon />
-          </button>
-          <button className="p-2 bg-gray-200 rounded-md">
-            <ShoppingCartOutlinedIcon />
-          </button>
-
           {/* Hamburger Icon */}
           <button
             className="text-gray-600 md:hidden"
@@ -108,20 +100,20 @@ export default function Header() {
             &times;
           </button>
 
-          <Link href="/" className="text-black text-lg py-2">
+          <Link href="/" className="text-black text-lg py-2" onClick={closeMobileMenu}>
             HOME
           </Link>
-          <Link href="/shop" className="text-black text-lg py-2">
+          <Link href="/shop" className="text-black text-lg py-2" onClick={closeMobileMenu}>
             SHOP
           </Link>
-          <Link href="/blog" className="text-black text-lg py-2">
+          <Link href="/blog" className="text-black text-lg py-2" onClick={closeMobileMenu}>
             BLOG
           </Link>
-          <Link href="/content" className="text-black text-lg py-2">
-            CONTENT
+          <Link href="/contact" className="text-black text-lg py-2" onClick={closeMobileMenu}>
+            CONTACT
           </Link>
 
-          {/* Mobile Icons (Hide Icons on Small Screens) */}
+          {/* Mobile Icons */}
           <div className="space-x-4 flex flex-row items-center pt-6">
             <Person2OutlinedIcon className="text-black" />
             <SearchIcon className="text-black" />
