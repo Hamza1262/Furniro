@@ -11,15 +11,38 @@ import { useState } from "react";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);  // State to control search popup
+  const [searchQuery, setSearchQuery] = useState("");  // State for search input
 
   // Close the mobile menu when a link is clicked
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
 
+  // Toggle search popup visibility
+  const handleSearchToggle = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Close the search popup
+  const handleCloseSearch = () => {
+    setIsSearchOpen(false);
+    setSearchQuery('');
+  };
+
+  // Close the mobile menu and navigate when a link is clicked
+  const handleMobileLinkClick = () => {
+    closeMobileMenu(); // Close the menu
+  };
+
   return (
-    <nav className="bg-white py-4 w-full h-24">
-      <div className="container mx-auto flex items-center justify-between px-6 md:px-10">
+    <nav className="bg-white py-4 w-full h-24 ">
+      <div className="container mx-auto flex items-center justify-between px-6 md:px-10 ">
         {/* Logo and Title */}
         <div className="flex items-center space-x-2">
           <Image
@@ -50,10 +73,12 @@ export default function Header() {
 
         {/* Desktop Icons */}
         <div className="hidden md:flex space-x-4">
-          <Person2OutlinedIcon />
-          <SearchIcon />
-          <FavoriteBorderOutlinedIcon />
-          <ShoppingCartOutlinedIcon />
+          <Link href={"/contact"}><Person2OutlinedIcon /></Link>
+          <button onClick={handleSearchToggle}>
+            <SearchIcon />
+          </button>
+          <Link href={"/"}><FavoriteBorderOutlinedIcon /></Link>
+          <Link href={"/cart"}><ShoppingCartOutlinedIcon /></Link>
         </div>
 
         {/* Mobile Menu Button (Hamburger) */}
@@ -83,9 +108,7 @@ export default function Header() {
 
       {/* Mobile Menu (Slide-in from top) */}
       <div
-        className={`fixed inset-0 bg-gray-800 bg-opacity-50 z-50 transform transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
-        }`}
+        className={`fixed inset-0 bg-gray-800 bg-opacity-50 z-50 transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"}`}
         onClick={() => setIsMobileMenuOpen(false)}
       >
         <div
@@ -100,28 +123,59 @@ export default function Header() {
             &times;
           </button>
 
-          <Link href="/" className="text-black text-lg py-2" onClick={closeMobileMenu}>
+          <Link href="/" className="text-black text-lg py-2" onClick={handleMobileLinkClick}>
             HOME
           </Link>
-          <Link href="/shop" className="text-black text-lg py-2" onClick={closeMobileMenu}>
+          <Link href="/shop" className="text-black text-lg py-2" onClick={handleMobileLinkClick}>
             SHOP
           </Link>
-          <Link href="/blog" className="text-black text-lg py-2" onClick={closeMobileMenu}>
+          <Link href="/blog" className="text-black text-lg py-2" onClick={handleMobileLinkClick}>
             BLOG
           </Link>
-          <Link href="/contact" className="text-black text-lg py-2" onClick={closeMobileMenu}>
+          <Link href="/contact" className="text-black text-lg py-2" onClick={handleMobileLinkClick}>
             CONTACT
           </Link>
 
           {/* Mobile Icons */}
           <div className="space-x-4 flex flex-row items-center pt-6">
-            <Person2OutlinedIcon className="text-black" />
-            <SearchIcon className="text-black" />
-            <FavoriteBorderOutlinedIcon className="text-black" />
-            <ShoppingCartOutlinedIcon className="text-black" />
+            <Link href={"/contact"}><Person2OutlinedIcon onClick={handleMobileLinkClick}/></Link>
+            <button onClick={handleSearchToggle}>
+              <SearchIcon onClick={handleMobileLinkClick} />
+            </button>
+            <Link href={"/"} onClick={handleMobileLinkClick}><FavoriteBorderOutlinedIcon /></Link>
+            <Link href={"/cart"} onClick={handleMobileLinkClick}><ShoppingCartOutlinedIcon /></Link>
           </div>
         </div>
       </div>
+
+      {/* Search Popup */}
+      {isSearchOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg w-full max-w-md relative">
+            {/* Close Button for Search */}
+            <button
+              onClick={handleCloseSearch}
+              className="absolute top-2 right-2 text-gray-600 text-xl"
+            >
+              &times;
+            </button>
+
+            {/* Search Input */}
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="w-full p-3 border border-gray-300 rounded-md"
+              placeholder="Search for products..."
+            />
+
+            {/* Search Button */}
+            <button className="mt-4 w-full bg-amber-500 text-white p-3 rounded-md">
+              Search
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

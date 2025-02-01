@@ -1,10 +1,10 @@
 import Product from "./components/products"
-import Section from "./components/sectiontop"
+import SectionTop from "./components/sectiontop"
 
 export default function Shop (){
     return (
         <>
-        <Section/>
+        <SectionTop/>
         <Product/>
         </>
     )

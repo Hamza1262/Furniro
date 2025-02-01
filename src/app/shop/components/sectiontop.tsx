@@ -11,11 +11,11 @@ export default function SectionTop() {
             <div className="text-amber-500 text-2xl mb-2">
                 <Image src={logo} alt='logo' className='w-16 h-16'/>
             </div>
-            <h1 className="text-2xl font-semibold mb-2">Contact</h1>
+            <h1 className="text-2xl font-semibold mb-2">Shop</h1>
             <div className="flex items-center gap-2 text-sm">
               <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
               <span className="text-gray-400">&gt;</span>
-              <span className="text-gray-900">Contact</span>
+              <span className="text-gray-900">Shop</span>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ export default {
   theme: {
     extend: {
       screens: {
+        'xxs': "200px",
         'xs': '540px',  // custom breakpoint for extra small devices
         '3xl': '1600px', // custom breakpoint for even larger screens
       },

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import image11 from "@/images/image (11).png";
 import image12 from "@/images/image (12).png";
+import Link from "next/link";
 
 // pages/index.js
 export default function Page1() {
@@ -15,16 +16,16 @@ export default function Page1() {
           Our designer has already created a lot of beautiful room prototypes that
           will inspire you.
         </p>
-        <button className="w-[170px] sm:w-[222px] h-[48px] sm:h-[74px] bg-goldbrown text-white mt-6 sm:mt-9">
+        <Link href={"/shop"}><button  className="w-[170px] sm:w-[222px] h-[48px] sm:h-[74px] bg-goldbrown text-white mt-6 sm:mt-9">
           Explore More
-        </button>
+        </button></Link>
       </div>
 
       {/* Right section (Images) */}
       <div className="flex justify-center lg:justify-start mt-8 lg:mt-0 w-full lg:w-[50%]">
         <div className="relative flex items-center justify-center space-x-4 lg:space-x-8">
           {/* Image 1 - Image 12 */}
-          <div className="relative h-[300px] w-full sm:w-[370px] lg:h-[580px] lg:w-[404px]">
+          <div className="relative h-[300px] w-full sm:w-[370px] lg:h-[580px] lg:w-[404px] ">
             <Image
               src={image12}
               alt="Image 12"
@@ -34,7 +35,7 @@ export default function Page1() {
             />
           </div>
           {/* Image 2 - Image 11 (Removed the sm:hidden class to make it visible on all screens) */}
-          <div className="relative h-[250px] sm:h-[400px] w-full sm:w-[300px] lg:h-[480px] lg:w-[370px]">
+          <div className="relative h-[250px] sm:h-[400px] w-full sm:w-[300px] lg:hidden ">
             <Image
               src={image11}
               alt="Image 11"

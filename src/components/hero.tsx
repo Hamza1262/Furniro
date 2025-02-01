@@ -1,5 +1,6 @@
 import bgHero from '@/images/bg-hero.jpeg'
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 export default function HeroSection() {
@@ -21,9 +22,11 @@ export default function HeroSection() {
           <p className="text-base sm:text-[18px] mt-4 sm:mt-8">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.
           </p>
+          <Link href={"/shop"}>
           <button className="w-full sm:w-[222px] h-[56px] sm:h-[74px] bg-goldbrown text-white mt-6 sm:mt-9">
             BUY NOW
           </button>
+          </Link>
         </div>
       </div>
     </section>
