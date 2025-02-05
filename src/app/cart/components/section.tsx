@@ -68,7 +68,7 @@ const Cart = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Cart Items */}
           <div className="lg:w-2/3">
-            <div className="bg-[#FFF9F3] p-4 mb-4 grid grid-cols-4 font-medium">
+            <div className="bg-[#FFF9F3] p-4 mb-4 grid grid-cols-4 font-medium text-sm sm:text-base">
               <div>Product</div>
               <div>Price</div>
               <div>Quantity</div>
@@ -77,9 +77,9 @@ const Cart = () => {
 
             {cartItems.map((cartItem) => (
               <div key={cartItem.id} className="bg-white p-4 shadow-sm rounded-lg mb-4">
-                <div className="grid grid-cols-4 items-center">
+                <div className="grid grid-cols-4 items-center gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-20 h-20 relative">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
                       <Image
                         src={cartItem.image}
                         alt={cartItem.name}
@@ -88,22 +88,22 @@ const Cart = () => {
                         className="rounded-lg"
                       />
                     </div>
-                    <span className="font-medium">{cartItem.name}</span>
+                    <span className="font-medium text-sm sm:text-base">{cartItem.name}</span>
                   </div>
-                  <div>Rs. {cartItem.price.toLocaleString()}</div>
+                  <div className="text-sm sm:text-base">Rs. {cartItem.price.toLocaleString()}</div>
                   <div>
                     <input
                       type="number"
                       value={cartItem.quantity}
                       onChange={(e) => handleQuantityChange(cartItem.id, Number(e.target.value))}
-                      className="w-16 p-2 border rounded-lg"
+                      className="w-16 p-2 border rounded-lg text-sm sm:text-base"
                       min="1"
                     />
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between text-sm sm:text-base">
                     <span>Rs. {getItemSubtotal(cartItem).toLocaleString()}</span>
                     <button 
-                      className="text-amber-500 hover:text-amber-600"
+                      className="text-amber-500 hover:text-amber-600 text-lg"
                       onClick={() => handleRemoveItem(cartItem.id)}
                     >
                       <span className="sr-only">Remove item</span>
@@ -120,18 +120,18 @@ const Cart = () => {
             <div className="bg-[#FFF9F3] p-6 rounded-lg">
               <h2 className="text-2xl font-semibold mb-6">Cart Totals</h2>
               <div className="space-y-4">
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span>Subtotal</span>
                   <span>Rs. {getCartTotal().toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between font-semibold">
+                <div className="flex justify-between font-semibold text-sm sm:text-base">
                   <span>Total</span>
                   <span className="text-amber-500">Rs. {getCartTotal().toLocaleString()}</span>
                 </div>
                 <Link href={"/checkout"}>
-                <button className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors">
-                  Check Out
-                </button>
+                  <button className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm sm:text-base">
+                    Check Out
+                  </button>
                 </Link>
               </div>
             </div>

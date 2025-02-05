@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Section() {
   return (
     <>
@@ -134,9 +136,11 @@ export default function Section() {
             </div>
 
             <div className="flex justify-between mt-6">
+              <Link href={"/cart"}>
               <button className="bg-amber-500 text-white py-3 rounded-lg hover:bg-amber-600 transition-colors w-full lg:w-auto">
                 Back to cart
               </button>
+              </Link>
               <button className="bg-amber-500 text-white py-3 rounded-lg hover:bg-amber-600 transition-colors w-full lg:w-auto">
                 Place Order
               </button>
