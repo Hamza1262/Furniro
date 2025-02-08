@@ -1,145 +1,125 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import logo from '@/images/logo.png'; 
-import sofa from '@/images/sofa1.png';
+import { useEffect, useState } from "react";
+import Image from "next/image";  // Correct import for Image component from Next.js
+import Link from "next/link";    // Correct import for Link component from Next.js
 
-// Cart Component
-const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Asgaard sofa',
-      price: 250000.00,
-      quantity: 1,
-      image: sofa, 
-    }
-  ]);
-
-  // Function to handle quantity change
-  const handleQuantityChange = (id: number, newQuantity: number) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? { ...item, quantity: newQuantity }
-          : item
-      )
-    );
-  };
-
-  // Function to handle item removal (Optional)
-  const handleRemoveItem = (id: number) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  // Calculate the subtotal for a specific cart item
-  const getItemSubtotal = (item: { price: number, quantity: number }) => {
-    return item.price * item.quantity;
-  };
-
-  // Calculate the total price of all items in the cart
-  const getCartTotal = () => {
-    return cartItems.reduce((total, item) => total + getItemSubtotal(item), 0);
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-col items-center">
-            <div className="text-amber-500 text-2xl mb-2">
-              <Image src={logo} alt='logo' className='w-16 h-16' />
-            </div>
-            <h1 className="text-2xl font-semibold mb-2">Cart</h1>
-            <div className="flex items-center gap-2 text-sm">
-              <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
-              <span className="text-gray-400">&gt;</span>
-              <span className="text-gray-900">Cart</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Cart Content */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Cart Items */}
-          <div className="lg:w-2/3">
-            <div className="bg-[#FFF9F3] p-4 mb-4 grid grid-cols-4 font-medium text-sm sm:text-base">
-              <div>Product</div>
-              <div>Price</div>
-              <div>Quantity</div>
-              <div>Subtotal</div>
-            </div>
-
-            {cartItems.map((cartItem) => (
-              <div key={cartItem.id} className="bg-white p-4 shadow-sm rounded-lg mb-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 relative">
-                      <Image
-                        src={cartItem.image}
-                        alt={cartItem.name}
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-lg"
-                      />
-                    </div>
-                    <span className="font-medium text-sm sm:text-base">{cartItem.name}</span>
-                  </div>
-                  <div className="text-sm sm:text-base">Rs. {cartItem.price.toLocaleString()}</div>
-                  <div>
-                    <input
-                      type="number"
-                      value={cartItem.quantity}
-                      onChange={(e) => handleQuantityChange(cartItem.id, Number(e.target.value))}
-                      className="w-16 p-2 border rounded-lg text-sm sm:text-base"
-                      min="1"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between text-sm sm:text-base">
-                    <span>Rs. {getItemSubtotal(cartItem).toLocaleString()}</span>
-                    <button 
-                      className="text-amber-500 hover:text-amber-600 text-lg"
-                      onClick={() => handleRemoveItem(cartItem.id)}
-                    >
-                      <span className="sr-only">Remove item</span>
-                      🗑️
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Cart Totals */}
-          <div className="lg:w-1/3">
-            <div className="bg-[#FFF9F3] p-6 rounded-lg">
-              <h2 className="text-2xl font-semibold mb-6">Cart Totals</h2>
-              <div className="space-y-4">
-                <div className="flex justify-between text-sm sm:text-base">
-                  <span>Subtotal</span>
-                  <span>Rs. {getCartTotal().toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between font-semibold text-sm sm:text-base">
-                  <span>Total</span>
-                  <span className="text-amber-500">Rs. {getCartTotal().toLocaleString()}</span>
-                </div>
-                <Link href={"/checkout"}>
-                  <button className="w-full bg-gray-900 text-white py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm sm:text-base">
-                    Check Out
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+// Define types for cart items
+type CartItem = {
+  _id: string;
+  title: string;
+  imageUrl: string;
+  price: number;
+  quantity: number;
 };
 
-export { Cart };
+export default function CartPage() {
+  const [cart, setCart] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+
+  const updateCart = (updatedCart: CartItem[]) => {
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
+  const increaseQuantity = (id: string) => {
+    const updatedCart = cart.map((item) =>
+      item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    updateCart(updatedCart);
+  };
+
+  const decreaseQuantity = (id: string) => {
+    const updatedCart = cart
+      .map((item) =>
+        item._id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+      .filter((item) => item.quantity > 0);
+    updateCart(updatedCart);
+  };
+
+  const removeItem = (id: string) => {
+    const updatedCart = cart.filter((item) => item._id !== id);
+    updateCart(updatedCart);
+  };
+
+  const totalValue = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  return (
+    <div className="max-w-7xl mx-auto p-8">
+      <h2 className="text-3xl font-bold mb-6">Shopping Cart</h2>
+      {cart.length > 0 ? (
+        <div className="space-y-6">
+          {cart.map((item) => (
+            <div
+              key={item._id}
+              className="flex items-center justify-between border-b pb-4"
+            >
+              <div className="flex items-center space-x-4">
+                <Image
+                  src={item.imageUrl}
+                  alt={item.title}
+                  width={80}
+                  height={80}
+                  className="rounded-lg"
+                />
+                <div>
+                  <h3 className="text-lg font-semibold">{item.title}</h3>
+                  <p className="text-gray-600">Rs. {item.price}</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={() => decreaseQuantity(item._id)}
+                  className="px-3 py-1 bg-gray-300 rounded"
+                >
+                  -
+                </button>
+                <span className="text-lg">{item.quantity}</span>
+                <button
+                  onClick={() => increaseQuantity(item._id)}
+                  className="px-3 py-1 bg-gray-300 rounded"
+                >
+                  +
+                </button>
+              </div>
+              <p className="text-lg font-semibold">Rs. {item.price * item.quantity}</p>
+              <button
+                onClick={() => removeItem(item._id)}
+                className="text-red-500 hover:underline"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <div className="text-xl font-semibold mt-6">
+            Total: Rs. {totalValue}
+          </div>
+          <div className="mt-4">
+            <Link href="/shop" className="text-blue-500 hover:underline">
+              Add More Products
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <p className="text-lg">
+          Your cart is empty.{" "}
+          <Link href="/shop" className="text-blue-500 hover:underline">
+            Shop Now
+          </Link>
+        </p>
+      )}
+    </div>
+  );
+}

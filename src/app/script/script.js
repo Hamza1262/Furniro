@@ -48,9 +48,13 @@ async function uploadProduct(product) {
           },
         },
         tags: product.tags,
-        dicountPercentage: product.dicountPercentage, // Typo in field name: dicountPercentage -> discountPercentage
+        discountPercentage: product.discountPercentage, // Fixed typo
         description: product.description,
         isNew: product.isNew,
+        category: {
+          _type: "reference",
+          _ref: product.categoryId // Assuming your category is a reference
+        }
       };
 
       const createdProduct = await client.create(document);
