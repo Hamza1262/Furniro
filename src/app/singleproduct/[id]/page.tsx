@@ -51,8 +51,8 @@ export default function SingleProduct() {
         setProduct(selectedProduct); // Set the product if found
         setError(null); // Clear any previous errors
 
-      } catch (err: any) {
-        // Handle errors from the try block
+      } catch (err: unknown) {
+        // Narrow down the error type using type guards
         if (err instanceof Error) {
           setError(err.message); // Set error message
         } else {
