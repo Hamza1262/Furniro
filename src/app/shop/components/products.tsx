@@ -369,3 +369,6 @@ export default function ProductGrid() {
 //     </div>
 //   );
 // }
+// console.log("Products component rendered");
+// console.log("Products data:", products);
+// console.log("Loading state:", loading);

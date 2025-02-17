@@ -107,7 +107,7 @@ export default function CartPage() {
             Total: Rs. {totalValue}
           </div>
           <div className="mt-4">
-            <Link href="/products" className="text-blue-500 hover:underline">
+            <Link href="/shop" className="text-blue-500 hover:underline">
               Add More Products
             </Link>
           </div>
